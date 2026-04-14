@@ -3,7 +3,8 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
     Name = "Zoo Premium Hub v2",
-    LoadingTitle = "Fixing TeslaFlora UI...",
+    LoadingTitle = "Integrating Units & Shop...",
+    LoadingTitle = "Integrating Units & Shop...2 ",
     LoadingSubtitle = "by Tegar",
     ConfigurationSaving = {Enabled = false}
 })
@@ -17,46 +18,46 @@ local Tab10 = Window:CreateTab("Shop x10", nil)
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RemoteFuncs = ReplicatedStorage:WaitForChild("RemoteFunctions")
 
--- Remote Handlers (pcall agar jika satu gagal, GUI tidak rusak)
+-- Remote Handlers
 local PromptDevProduct = RemoteFuncs:WaitForChild("PromptDeveloperProduct")
 local BuyUnitWithRobux = RemoteFuncs:WaitForChild("BuyUnitWithRobux")
 
 -- 🛠️ Fungsi Universal untuk Membeli
 local function executePurchase(type, id, suffix)
-    -- Perbaikan: Pastikan suffix hanya menempel jika ID tidak kosong
     local fullName = id .. suffix
-    
-    local success, err = pcall(function()
-        if type == "Unit" then
-            -- Manggil remote khusus Unit
+    local success, err
+
+    if type == "Unit" then
+        -- Logika khusus Unit (tanpa argumen "shop")
+        success, err = pcall(function()
             BuyUnitWithRobux:InvokeServer(fullName)
-        else
-            -- Manggil remote khusus Item (Keep in Bag)
-            PromptDevProduct:InvokeServer(fullName, "shop")
-        end
-    end)
-    
-    if success then
-        Rayfield:Notify({Title = "Request Sent!", Content = "Membeli: " .. fullName, Duration = 2})
+        end)
     else
-        warn("Gagal eksekusi: " .. tostring(err))
+        -- Logika khusus Developer Product (Keep in Bag)
+        success, err = pcall(function()
+            PromptDevProduct:InvokeServer(fullName, "shop")
+        end)
+    end
+
+    if success then
+        Rayfield:Notify({Title = "Request Sent!", Content = fullName .. " diproses.", Duration = 2})
+    else
+        warn("Gagal: " .. tostring(err))
     end
 end
 
--- 📝 Daftar Item & Unit (ID DISESUAIKAN)
+-- 📝 Daftar Item & Unit
 local items = {
     {name = "Candy Corns", id = "dp_gd_double_candycorns", type = "Item"},
     {name = "Double Space Gems", id = "dp_gd_double_spacegems", type = "Item"},
     {name = "Corrupted Plant (Unit)", id = "ub_corrupted", type = "Unit"},
-    {name = "Teslaflora (Unit)", id = "unit_teslaflora", type = "Unit"} -- ID sudah diperbaiki
+    {name = "Egg Basket (Unit)", id = "unit_egg_basket", type = "Unit"}
 }
 
 -------------------------------------------------------
--- 🛒 GENERATOR TOMBOL (Automated)
+-- 🛒 TAB 1: BUY x1
 -------------------------------------------------------
-
--- Tab x1
-Tab1:CreateSection("Single Purchase")
+Tab1:CreateSection("Single Purchase (x1)")
 for _, item in ipairs(items) do
     Tab1:CreateButton({
         Name = "Buy " .. item.name .. " x1",
@@ -64,8 +65,10 @@ for _, item in ipairs(items) do
     })
 end
 
--- Tab x3
-Tab3:CreateSection("Triple Purchase")
+-------------------------------------------------------
+-- 🛒 TAB 3: BUY x3
+-------------------------------------------------------
+Tab3:CreateSection("Triple Purchase (x3)")
 for _, item in ipairs(items) do
     Tab3:CreateButton({
         Name = "Buy " .. item.name .. " x3",
@@ -73,8 +76,10 @@ for _, item in ipairs(items) do
     })
 end
 
--- Tab x10
-Tab10:CreateSection("Mega Purchase")
+-------------------------------------------------------
+-- 🛒 TAB 10: BUY x10
+-------------------------------------------------------
+Tab10:CreateSection("Mega Purchase (x10)")
 for _, item in ipairs(items) do
     Tab10:CreateButton({
         Name = "Buy " .. item.name .. " x10",
@@ -82,8 +87,11 @@ for _, item in ipairs(items) do
     })
 end
 
+-------------------------------------------------------
+-- 🎉 Startup Notification
+-------------------------------------------------------
 Rayfield:Notify({
-    Title = "Fix Applied!",
-    Content = "Teslaflora & Corrupted Plant Ready.",
+    Title = "Script Ready!",
+    Content = "Unit Corrupted Plant telah ditambahkan ke semua tab.",
     Duration = 5
 })
