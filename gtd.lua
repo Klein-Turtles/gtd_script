@@ -7,7 +7,7 @@ if not success then warn("Gagal load Rayfield!") return end
 
 local Window = Rayfield:CreateWindow({
     Name = "Zoo Premium Hub v2 (Fix)",
-    LoadingTitle = "Pasti Muncul Mode...",
+    LoadingTitle = "Pasti Muncul Mode.dadsasda..",
     LoadingSubtitle = "by Tegar",
     ConfigurationSaving = {Enabled = false}
 })
@@ -42,7 +42,7 @@ local items = {
     {n = "Corrupted Plant", id = "ub_corrupted", t = "Unit"},
     {n = "Teslaflora x2", id = "unit_choco_tesla", t = "Unit"},
     {n = "Egg Basket", id = "unit_egg_basket", t = "Unit"},
-    {n = "Egg Plantinum", id = "unit_egg_plantinum", t = "Unit"},
+    {n = "Egg Plantinum", id = "unit_eggplantinum", t = "Unit"},
     {n = "Bunny Golem", id = "unit_bunny_golem", t = "Unit"}
 }
 
