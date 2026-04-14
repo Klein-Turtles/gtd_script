@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
     Name = "Zoo Premium Hub v2",
-    LoadingTitle = "Integrating Units & Shop...",
+    LoadingTitle = "Integrating Units & Shop...2 ",
     LoadingSubtitle = "by Tegar",
     ConfigurationSaving = {Enabled = false}
 })
