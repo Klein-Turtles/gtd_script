@@ -2,86 +2,95 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-    Name = "Zoo Halloween Hub",
-    LoadingTitle = "Personal Inventory Mode...",
+    Name = "Zoo Premium Hub v2",
+    LoadingTitle = "Integrating Units & Shop...",
     LoadingSubtitle = "by Tegar",
     ConfigurationSaving = {Enabled = false}
 })
 
 -- 📑 Definisi Tab
-local Tab1 = Window:CreateTab("Buy x1", nil)
-local Tab3 = Window:CreateTab("Buy x3", nil)
-local Tab10 = Window:CreateTab("Buy x10", nil)
+local Tab1 = Window:CreateTab("Shop x1", nil)
+local Tab3 = Window:CreateTab("Shop x3", nil)
+local Tab10 = Window:CreateTab("Shop x10", nil)
 
--- 📦 Services & Remotes (Sesuai Folder Baru)
+-- 📦 Services & Remotes
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local PromptDevProduct = ReplicatedStorage:WaitForChild("RemoteFunctions"):WaitForChild("PromptDeveloperProduct")
+local RemoteFuncs = ReplicatedStorage:WaitForChild("RemoteFunctions")
 
--- Fungsi Universal untuk Membeli (Keep in Bag)
-local function buyKeep(itemID, suffix)
-    local fullName = itemID .. suffix
-    local args = {
-        fullName, 
-        "shop" -- Argumen agar tetap di tas sendiri
-    }
+-- Remote Handlers
+local PromptDevProduct = RemoteFuncs:WaitForChild("PromptDeveloperProduct")
+local BuyUnitWithRobux = RemoteFuncs:WaitForChild("BuyUnitWithRobux")
+
+-- 🛠️ Fungsi Universal untuk Membeli
+local function executePurchase(type, id, suffix)
+    local fullName = id .. suffix
+    local success, err
     
-    local success, err = pcall(function()
-        PromptDevProduct:InvokeServer(unpack(args))
-    end)
+    if type == "Unit" then
+        -- Logika khusus Unit (tanpa argumen "shop")
+        success, err = pcall(function()
+            BuyUnitWithRobux:InvokeServer(fullName)
+        end)
+    else
+        -- Logika khusus Developer Product (Keep in Bag)
+        success, err = pcall(function()
+            PromptDevProduct:InvokeServer(fullName, "shop")
+        end)
+    end
     
     if success then
-        Rayfield:Notify({Title = "Sent!", Content = "Request " .. fullName .. " ke tas dikirim.", Duration = 2})
+        Rayfield:Notify({Title = "Request Sent!", Content = fullName .. " diproses.", Duration = 2})
     else
         warn("Gagal: " .. tostring(err))
     end
 end
 
--- Daftar Item (Gunakan ID yang sudah di-scratch atau diprediksi)
--- Pastikan ID menggunakan prefix dp_gd_ sesuai sistem baru
-local halloweenItems = {
-    {name = "Candy Corns", id = "dp_gd_candycorns"},
-    {name = "Double Space Gems", id = "dp_gd_double_spacegems"},
-    {name = "Halloween Gift", id = "dp_gd_halloween_gift"}
+-- 📝 Daftar Item & Unit
+local items = {
+    {name = "Candy Corns", id = "dp_gd_candycorns", type = "Item"},
+    {name = "Double Space Gems", id = "dp_gd_double_spacegems", type = "Item"},
+    {name = "Corrupted Plant (Unit)", id = "unit_corrupted_plant", type = "Unit"},
+    {name = "Egg Basket (Unit)", id = "unit_egg_basket", type = "Unit"}
 }
 
 -------------------------------------------------------
--- 🍬 TAB 1: BUY x1
+-- 🛒 TAB 1: BUY x1
 -------------------------------------------------------
-Tab1:CreateSection("Keep in Bag (x1)")
-for _, item in ipairs(halloweenItems) do
+Tab1:CreateSection("Single Purchase (x1)")
+for _, item in ipairs(items) do
     Tab1:CreateButton({
         Name = "Buy " .. item.name .. " x1",
-        Callback = function() buyKeep(item.id, "") end, -- Biasanya x1 tanpa suffix
+        Callback = function() executePurchase(item.type, item.id, "") end,
     })
 end
 
 -------------------------------------------------------
--- 🍬 TAB 3: BUY x3
+-- 🛒 TAB 3: BUY x3
 -------------------------------------------------------
-Tab3:CreateSection("Keep in Bag (x3)")
-for _, item in ipairs(halloweenItems) do
+Tab3:CreateSection("Triple Purchase (x3)")
+for _, item in ipairs(items) do
     Tab3:CreateButton({
         Name = "Buy " .. item.name .. " x3",
-        Callback = function() buyKeep(item.id, "_x3") end,
+        Callback = function() executePurchase(item.type, item.id, "_x3") end,
     })
 end
 
 -------------------------------------------------------
--- 🍬 TAB 10: BUY x10
+-- 🛒 TAB 10: BUY x10
 -------------------------------------------------------
-Tab10:CreateSection("Keep in Bag (x10)")
-for _, item in ipairs(halloweenItems) do
+Tab10:CreateSection("Mega Purchase (x10)")
+for _, item in ipairs(items) do
     Tab10:CreateButton({
         Name = "Buy " .. item.name .. " x10",
-        Callback = function() buyKeep(item.id, "_x10") end,
+        Callback = function() executePurchase(item.type, item.id, "_x10") end,
     })
 end
 
 -------------------------------------------------------
--- 🎉 Notifikasi
+-- 🎉 Startup Notification
 -------------------------------------------------------
 Rayfield:Notify({
-    Title = "Personal Mode Active",
-    Content = "Semua pembelian akan diarahkan ke tas kamu.",
+    Title = "Script Ready!",
+    Content = "Unit Corrupted Plant telah ditambahkan ke semua tab.",
     Duration = 5
 })
