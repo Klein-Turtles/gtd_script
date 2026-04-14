@@ -43,7 +43,7 @@ local items = {
     {n = "Teslaflora x2", id = "unit_choco_tesla", t = "Unit"},
     {n = "Egg Basket", id = "unit_egg_basket", t = "Unit"},
     {n = "Egg Plantinum", id = "unit_eggplantinum", t = "Unit"},
-    {n = "Bunny Golem", id = "unit_bunny_golem", t = "Unit"}
+    {n = "Shockolate", id = "unit_choco_tesla", t = "Unit"}
 }
 
 -- 🛒 Pembuatan Tombol Manual (Anti-Gagal)
