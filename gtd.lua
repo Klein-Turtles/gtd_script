@@ -50,7 +50,7 @@ local items = {
     {name = "Candy Corns", id = "dp_gd_double_candycorns", type = "Item"},
     {name = "Double Space Gems", id = "dp_gd_double_spacegems", type = "Item"},
     {name = "Corrupted Plant (Unit)", id = "ub_corrupted", type = "Unit"},
-    {name = "Egg Basket (Unit)", id = "unit_egg_basket", type = "Unit"}
+    {name = "Egg Basket (Unit)", id = "unit_teslaflora", type = "Unit"}
 }
 
 -------------------------------------------------------
