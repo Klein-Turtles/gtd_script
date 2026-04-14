@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
     Name = "Zoo Premium Hub v2",
-    LoadingTitle = "Fixing Buttons...",
+    LoadingTitle = "Adding Bunny Golem...",
     LoadingSubtitle = "by Tegar",
     ConfigurationSaving = {Enabled = false}
 })
@@ -38,18 +38,19 @@ local function executePurchase(type, id, suffix)
     end
 end
 
--- 📝 Daftar Item & Unit (PASTIKAN PENULISAN BENAR)
+-- 📝 Daftar Item & Unit (Update: Bunny Golem Added)
 local items = {
     {name = "Candy Corns", id = "dp_gd_double_candycorns", type = "Item"},
     {name = "Double Space Gems", id = "dp_gd_double_spacegems", type = "Item"},
     {name = "Corrupted Plant", id = "ub_corrupted", type = "Unit"},
     {name = "Teslaflora x2", id = "unit_choco_tesla", type = "Unit"},
     {name = "Egg Basket", id = "unit_egg_basket", type = "Unit"},
-    {name = "Egg Plantinum", id = "unit_egg_plantinum", type = "Unit"}
+    {name = "Egg Plantinum", id = "unit_egg_plantinum", type = "Unit"},
+    {name = "Bunny Golem", id = "unit_bunny_golem", type = "Unit"} -- ID Baru Bos!
 }
 
 -------------------------------------------------------
--- 🛒 Manual Generator (Lebih Aman Agar Tombol Muncul)
+-- 🛒 Generator Tombol
 -------------------------------------------------------
 
 -- TAB x1
@@ -80,7 +81,7 @@ for _, item in pairs(items) do
 end
 
 Rayfield:Notify({
-    Title = "Script Fixed!",
-    Content = "Semua tombol harusnya sudah muncul sekarang.",
+    Title = "Update Success!",
+    Content = "Bunny Golem sudah tersedia di semua tab.",
     Duration = 5
 })
