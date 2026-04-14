@@ -3,8 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
     Name = "Zoo Premium Hub v2",
-    LoadingTitle = "Integrating Units & Shop...",
-    LoadingTitle = "Integrating Units & Shop...2 ",
+    LoadingTitle = "Integrating Teslaflora...",
     LoadingSubtitle = "by Tegar",
     ConfigurationSaving = {Enabled = false}
 })
@@ -28,7 +27,7 @@ local function executePurchase(type, id, suffix)
     local success, err
 
     if type == "Unit" then
-        -- Logika khusus Unit (tanpa argumen "shop")
+        -- Logika khusus Unit
         success, err = pcall(function()
             BuyUnitWithRobux:InvokeServer(fullName)
         end)
@@ -46,12 +45,13 @@ local function executePurchase(type, id, suffix)
     end
 end
 
--- 📝 Daftar Item & Unit
+-- 📝 Daftar Item & Unit (Teslaflora Sudah Ditambahkan)
 local items = {
     {name = "Candy Corns", id = "dp_gd_double_candycorns", type = "Item"},
     {name = "Double Space Gems", id = "dp_gd_double_spacegems", type = "Item"},
-    {name = "Corrupted Plant (Unit)", id = "ub_corrupted", type = "Unit"},
-    {name = "Egg Basket (Unit)", id = "unit_egg_basket", type = "Unit"}
+    {name = "Corrupted Plant", id = "ub_corrupted", type = "Unit"},
+    {name = "Teslaflora", id = "unit_teslaflora", type = "Unit"},
+    {name = "Egg Basket", id = "unit_egg_basket", type = "Unit"}
 }
 
 -------------------------------------------------------
@@ -92,6 +92,6 @@ end
 -------------------------------------------------------
 Rayfield:Notify({
     Title = "Script Ready!",
-    Content = "Unit Corrupted Plant telah ditambahkan ke semua tab.",
+    Content = "Teslaflora telah ditambahkan ke semua tab.",
     Duration = 5
 })
