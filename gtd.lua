@@ -51,8 +51,9 @@ local items = {
     {name = "Double Space Gems", id = "dp_gd_double_spacegems", type = "Item"},
     {name = "Corrupted Plant", id = "ub_corrupted", type = "Unit"},
     {name = "Teslaflora x2", id = "unit_choco_tesla", type = "Unit"},
-    {name = "Egg Basket", id = "unit_egg_basket", type = "Unit"}
-}
+    {name = "Egg Basket", id = "unit_egg_basket", type = "Unit"},
+    {name = "Egg Plantinum", id = "unit_eggplantinum", type = "Unit"}
+    }
 
 -------------------------------------------------------
 -- 🛒 TAB 1: BUY x1
