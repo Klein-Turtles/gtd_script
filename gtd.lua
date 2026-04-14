@@ -7,7 +7,7 @@ if not success then warn("Gagal load Rayfield!") return end
 
 local Window = Rayfield:CreateWindow({
     Name = "Zoo Premium Hub v2 (Fix)",
-    LoadingTitle = "Pasti Muncul Madsasdode.dadsasda..",
+    LoadingTitle = "Pasti Muasdasdncul Madsasdode.dadsasda..",
     LoadingSubtitle = "by Tegar",
     ConfigurationSaving = {Enabled = false}
 })
