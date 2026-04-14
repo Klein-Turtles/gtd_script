@@ -39,7 +39,7 @@ end
 local items = {
     {n = "Candy Corns", id = "dp_gd_double_candycorns", t = "Item"},
     {n = "Double Space Gems", id = "dp_gd_double_spacegems", t = "Item"},
-    {n = "Corrupted Plant", id = "unit_eye_plant", t = "Unit"},
+    {n = "Corrupted Plant", id = "unit_eyeball", t = "Unit"},
     {n = "Teslaflora x2", id = "unit_choco_tesla", t = "Unit"},
     {n = "Egg Basket", id = "unit_egg_basket", t = "Unit"},
     {n = "Egg Plantinum", id = "unit_eggplantinum", t = "Unit"},
