@@ -6,63 +6,56 @@ end)
 if not success then warn("Gagal load Rayfield!") return end
 
 local Window = Rayfield:CreateWindow({
-    Name = "Zoo Premium Hub v2 (Fix)",
-    LoadingTitle = "Pasti asdiadjsjnadfsa..",
+    Name = "Zoo Sniper v3 (Eyeball Fix)",
+    LoadingTitle = "Applying Corrupted ID...",
     LoadingSubtitle = "by Tegar",
     ConfigurationSaving = {Enabled = false}
 })
 
--- 📑 Definisi Tab
-local Tab1 = Window:CreateTab("Shop x1", nil)
-local Tab3 = Window:CreateTab("Shop x3", nil)
-local Tab10 = Window:CreateTab("Shop x10", nil)
-
--- 📦 Services & Remotes (Dibungkus pcall biar gak macet)
+local Tab = Window:CreateTab("The Real Shop", nil)
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local RemoteFuncs = ReplicatedStorage:FindFirstChild("RemoteFunctions")
-local PromptDevProduct = RemoteFuncs and RemoteFuncs:FindFirstChild("PromptDeveloperProduct")
-local BuyUnitWithRobux = RemoteFuncs and RemoteFuncs:FindFirstChild("BuyUnitWithRobux")
+local RemoteFuncs = ReplicatedStorage:WaitForChild("RemoteFunctions")
+local PromptDevProduct = RemoteFuncs:FindFirstChild("PromptDeveloperProduct")
 
--- 🛠️ Fungsi Utama
-local function executePurchase(type, id, suffix)
-    local fullName = id .. suffix
-    if type == "Unit" and BuyUnitWithRobux then
-        BuyUnitWithRobux:InvokeServer(fullName)
-    elseif PromptDevProduct then
-        PromptDevProduct:InvokeServer(fullName, "shop")
+-- 🛠️ Fungsi Tembak Developer Product
+local function snipeProduct(id)
+    if PromptDevProduct then
+        -- Kita pakai ID asli dari Module: dp_unit_eyeball
+        -- Kita coba kirim ke kategori "shop" seperti di script aslinya
+        print("🎯 Sniping Product: " .. id)
+        PromptDevProduct:InvokeServer(id, "shop")
+        
+        Rayfield:Notify({
+            Title = "Target Acquired",
+            Content = "Nembak " .. id .. " via DevProduct!",
+            Duration = 3
+        })
     else
-        Rayfield:Notify({Title = "Error", Content = "Remote tidak ditemukan di game ini!", Duration = 3})
+        Rayfield:Notify({Title = "Error", Content = "Remote PromptDevProduct ilang!", Duration = 5})
     end
 end
 
--- 📝 Daftar Item
-local items = {
-    {n = "Candy Corns", id = "dp_gd_double_candycorns", t = "Item"},
-    {n = "Double Space Gems", id = "dp_gd_double_spacegems", t = "Item"},
-    {n = "Corrupted Plant", id = "unit_eyeball", t = "Unit"},
-    {n = "Teslaflora x2", id = "unit_coil", t = "Unit"},
-    {n = "Egg Basket", id = "unit_egg_basket", t = "Unit"},
-    {n = "Egg Plantinum", id = "unit_eggplantinum", t = "Unit"},
-    {n = "Shockolate", id = "unit_choco_tesla", t = "Unit"}
-}
+Tab:CreateSection("Exclusive Units")
 
--- 🛒 Pembuatan Tombol Manual (Anti-Gagal)
-for _, item in ipairs(items) do
-    -- Tab x1
-    Tab1:CreateButton({
-        Name = "Buy " .. item.n .. " x1",
-        Callback = function() executePurchase(item.t, item.id, "") end,
-    })
-    -- Tab x3
-    Tab3:CreateButton({
-        Name = "Buy " .. item.n .. " x3",
-        Callback = function() executePurchase(item.t, item.id, "_x3") end,
-    })
-    -- Tab x10
-    Tab10:CreateButton({
-        Name = "Buy " .. item.n .. " x10",
-        Callback = function() executePurchase(item.t, item.id, "_x10") end,
-    })
-end
+-- Tombol Eyeball dengan ID yang BENAR (dp_unit_eyeball)
+Tab:CreateButton({
+    Name = "👁️ Buy Corrupted Stem (Eyeball)",
+    Callback = function() 
+        snipeProduct("dp_unit_eyeball") -- ID SESUAI MODULE
+    end,
+})
 
-Rayfield:Notify({Title = "Ready!", Content = "Cek tab sekarang!", Duration = 5})
+-- Tombol Tesla (Buat perbandingan)
+Tab:CreateButton({
+    Name = "⚡ Buy Teslaflora (Coil)",
+    Callback = function() 
+        snipeProduct("dp_unit_coil") -- Biasanya polanya sama pakai 'dp_'
+    end,
+})
+
+Tab:CreateSection("Quantities")
+-- Versi Bulk jika ID-nya mendukung suffix
+Tab:CreateButton({
+    Name = "📦 Buy Eyeball x3",
+    Callback = function() snipeProduct("dp_unit_eyeball_x3") end,
+})
