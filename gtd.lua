@@ -1,4 +1,5 @@
 return(function(...)
+-- 🔐 Fungsi Dekoder Base64
 local b='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
 local function base64decode(data)
     data = string.gsub(data, '[^'..b..'=]', '')
@@ -16,58 +17,55 @@ end
 
 -- 🧩 Load Rayfield UI
 local success, Rayfield = pcall(function() 
-    return loadstring(game:HttpGet('https://sirius.menu/rayfield'))() 
+    return loadstring(game:HttpGet('https://raw.githubusercontent.com/SiriusTools/Rayfield/main/source'))() 
 end)
 
-if not success then warn("Gagal load Rayfield!") return end
+if not success then return end
 
+-- 🖥️ Pembuatan Window (Tanpa loadstring di dalam parameter teks)
 local Window = Rayfield:CreateWindow({
-    Name = base64decode("Wm9vIFNuaXBlciB2MyAoRXllYmFsbCBGaXgp"),
-    LoadingTitle = base64decode("QXBwbHlpbmcgQ29ycnVwdGVkIElELi4u"),
-    LoadingSubtitle = base64decode("YnkgVGVnYXI="),
+    Name = base64decode("Wm9vIFNuaXBlciB2MyAoRXllYmFsbCBGaXgp"), -- Zoo Sniper v3
+    LoadingTitle = base64decode("QXBwbHlpbmcgQ29ycnVwdGVkIElELi4u"), -- Applying Corrupted ID...
+    LoadingSubtitle = base64decode("YnkgVGVnYXI="), -- by Tegar
     ConfigurationSaving = {Enabled = false}
 })
 
-local Tab = Window:CreateTab(base64decode("VGhlIFJlYWwgU2hvcA=="), nil)
-local ReplicatedStorage = game:GetService(base64decode("UmVwbGljYXRlZFN0b3JhZ2U="))
-local RemoteFuncs = ReplicatedStorage:WaitForChild(base64decode("UmVtb3RlRnVuY3Rpb25z"))
-local PromptDevProduct = RemoteFuncs:FindFirstChild(base64decode("UHJvbXB0RGV2ZWxvcGVyUHJvZHVjdA=="))
+local Tab = Window:CreateTab(base64decode("VGhlIFJlYWwgU2hvcA=="), nil) -- The Real Shop
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RemoteFuncs = ReplicatedStorage:WaitForChild("RemoteFunctions")
+local PromptDevProduct = RemoteFuncs:FindFirstChild("PromptDeveloperProduct")
 
 local function snipeProduct(id)
     if PromptDevProduct then
-        print(base64decode("8J+OryBTbmlwaW5nIFByb2R1Y3Q6IA==") .. id)
-        PromptDevProduct:InvokeServer(id, base64decode("c2hvcA=="))
-        
+        PromptDevProduct:InvokeServer(id, base64decode("c2hvcA==")) -- shop
         Rayfield:Notify({
-            Title = base64decode("VGFyZ2V0IEFjcXVpcmVk"),
-            Content = base64decode("TmVtYmFrIA==") .. id .. base64decode("IHZpYSBEZXZQcm9kdWN0IQ=="),
+            Title = base64decode("VGFyZ2V0IEFjcXVpcmVk"), -- Target Acquired
+            Content = base64decode("TmVtYmFrIA==") .. id, -- Nembak 
             Duration = 3
         })
-    else
-        Rayfield:Notify({Title = "Error", Content = "Remote Missing!", Duration = 5})
     end
 end
 
-Tab:CreateSection(base64decode("RXhjbHVzaXZlIFVuaXRz"))
+Tab:CreateSection(base64decode("RXhjbHVzaXZlIFVuaXRz")) -- Exclusive Units
 
 Tab:CreateButton({
-    Name = base64decode("8J+Rge+4jyBCdXkgQ29ycnVwdGVkIFN0ZW0gKEV5ZWJhbGwp"),
+    Name = base64decode("8J+Rge+4jyBCdXkgQ29ycnVwdGVkIFN0ZW0gKEV5ZWJhbGwp"), -- Button Eyeball
     Callback = function() 
-        snipeProduct(base64decode("ZHBfdW5pdF9leWViYWxs")) 
+        snipeProduct(base64decode("ZHBfdW5pdF9leWViYWxs")) -- dp_unit_eyeball
     end,
 })
 
 Tab:CreateButton({
-    Name = base64decode("4pqhIEJ1eSBUZXNsYWZsb3JhIChDb2lsKQ=="),
+    Name = base64decode("4pqhIEJ1eSBUZXNsYWZsb3JhIChDb2lsKQ=="), -- Button Coil
     Callback = function() 
-        snipeProduct(base64decode("ZHBfdW5pdF9jb2ls")) 
+        snipeProduct(base64decode("ZHBfdW5pdF9jb2ls")) -- dp_unit_coil
     end,
 })
 
-Tab:CreateSection(base64decode("UXVhbnRpdGllcw=="))
+Tab:CreateSection(base64decode("UXVhbnRpdGllcw==")) -- Quantities
 
 Tab:CreateButton({
-    Name = base64decode("8J+TpiBCdXkgRXllYmFsbCB4Mw=="),
+    Name = base64decode("8J+TpiBCdXkgRXllYmFsbCB4Mw=="), -- Eyeball x3
     Callback = function() snipeProduct(base64decode("ZHBfdW5pdF9leWViYWxsX3gz")) end,
 })
 
