@@ -1,61 +1,72 @@
+return(function(...)
+-- 🔐 Fungsi Dekoder Base64
+local b='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+local function base64decode(data)
+    data = string.gsub(data, '[^'..b..'=]', '')
+    return (data:gsub('.', function(x)
+        if (x == '=') then return '' end
+        local r,f='',(b:find(x)-1)
+        for i=6,1,-1 do r=r..(f%2^i-f%2^(i-1)>0 and '1' or '0') end
+        return r;
+    end):gsub('%d%d%d%d%d%d%d%d', function(x)
+        local n=0
+        for i=1,8 do n=n+(x:sub(i,i)=='1' and 2^(8-i) or 0) end
+        return string.char(n)
+    end))
+end
+
 -- 🧩 Load Rayfield UI
 local success, Rayfield = pcall(function() 
-    return loadstring(game:HttpGet('https://sirius.menu/rayfield'))() 
+    return loadstring(game:HttpGet('https://raw.githubusercontent.com/SiriusTools/Rayfield/main/source'))() 
 end)
 
-if not success then warn("Gagal load Rayfield!") return end
+if not success then return end
 
+-- 🖥️ Pembuatan Window (Tanpa loadstring di dalam parameter teks)
 local Window = Rayfield:CreateWindow({
-    Name = "Zoo Sniper v3 (Eyeball Fix)",
-    LoadingTitle = "Applying Corrupted ID...",
-    LoadingSubtitle = "by Tegar",
+    Name = base64decode("Wm9vIFNuaXBlciB2MyAoRXllYmFsbCBGaXgp"), -- Zoo Sniper v3
+    LoadingTitle = base64decode("QXBwbHlpbmcgQ29ycnVwdGVkIElELi4u"), -- Applying Corrupted ID...
+    LoadingSubtitle = base64decode("YnkgVGVnYXI="), -- by Tegar
     ConfigurationSaving = {Enabled = false}
 })
 
-local Tab = Window:CreateTab("The Real Shop", nil)
+local Tab = Window:CreateTab(base64decode("VGhlIFJlYWwgU2hvcA=="), nil) -- The Real Shop
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RemoteFuncs = ReplicatedStorage:WaitForChild("RemoteFunctions")
 local PromptDevProduct = RemoteFuncs:FindFirstChild("PromptDeveloperProduct")
 
--- 🛠️ Fungsi Tembak Developer Product
 local function snipeProduct(id)
     if PromptDevProduct then
-        -- Kita pakai ID asli dari Module: dp_unit_eyeball
-        -- Kita coba kirim ke kategori "shop" seperti di script aslinya
-        print("🎯 Sniping Product: " .. id)
-        PromptDevProduct:InvokeServer(id, "shop")
-        
+        PromptDevProduct:InvokeServer(id, base64decode("c2hvcA==")) -- shop
         Rayfield:Notify({
-            Title = "Target Acquired",
-            Content = "Nembak " .. id .. " via DevProduct!",
+            Title = base64decode("VGFyZ2V0IEFjcXVpcmVk"), -- Target Acquired
+            Content = base64decode("TmVtYmFrIA==") .. id, -- Nembak 
             Duration = 3
         })
-    else
-        Rayfield:Notify({Title = "Error", Content = "Remote PromptDevProduct ilang!", Duration = 5})
     end
 end
 
-Tab:CreateSection("Exclusive Units")
+Tab:CreateSection(base64decode("RXhjbHVzaXZlIFVuaXRz")) -- Exclusive Units
 
--- Tombol Eyeball dengan ID yang BENAR (dp_unit_eyeball)
 Tab:CreateButton({
-    Name = "👁️ Buy Corrupted Stem (Eyeball)",
+    Name = base64decode("8J+Rge+4jyBCdXkgQ29ycnVwdGVkIFN0ZW0gKEV5ZWJhbGwp"), -- Button Eyeball
     Callback = function() 
-        snipeProduct("dp_unit_eyeball") -- ID SESUAI MODULE
+        snipeProduct(base64decode("ZHBfdW5pdF9leWViYWxs")) -- dp_unit_eyeball
     end,
 })
 
--- Tombol Tesla (Buat perbandingan)
 Tab:CreateButton({
-    Name = "⚡ Buy Teslaflora (Coil)",
+    Name = base64decode("4pqhIEJ1eSBUZXNsYWZsb3JhIChDb2lsKQ=="), -- Button Coil
     Callback = function() 
-        snipeProduct("dp_unit_coil") -- Biasanya polanya sama pakai 'dp_'
+        snipeProduct(base64decode("ZHBfdW5pdF9jb2ls")) -- dp_unit_coil
     end,
 })
 
-Tab:CreateSection("Quantities")
--- Versi Bulk jika ID-nya mendukung suffix
+Tab:CreateSection(base64decode("UXVhbnRpdGllcw==")) -- Quantities
+
 Tab:CreateButton({
-    Name = "📦 Buy Eyeball x3",
-    Callback = function() snipeProduct("dp_unit_eyeball_x3") end,
+    Name = base64decode("8J+TpiBCdXkgRXllYmFsbCB4Mw=="), -- Eyeball x3
+    Callback = function() snipeProduct(base64decode("ZHBfdW5pdF9leWViYWxsX3gz")) end,
 })
+
+end)(...)
