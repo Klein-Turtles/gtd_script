@@ -55,7 +55,7 @@ Tab:CreateButton({
 Tab:CreateButton({
     Name = "⚡ Buy Teslaflora",
     Callback = function() 
-        snipeProduct("dp_unit_choco_tesla") 
+        snipeProduct("dp_unit_tesla") 
     end,
 })
 
