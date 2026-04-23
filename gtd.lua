@@ -26,7 +26,7 @@ local function snipeProduct(id)
         
         Rayfield:Notify({
             Title = "Target Acquired",
-            Content = "Nembak " .. id .. " via DevProduct!",
+            Content = "Nembak via DevProduct!",
             Duration = 3
         })
     else
